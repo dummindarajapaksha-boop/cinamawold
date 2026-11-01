@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GAME ZONE – Enter the Gaming World</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--panel:#07101a;--panel2:#0b1826;--line:#12304a;--blue:#1e90ff;--cyan:#00e5ff;--text:#e6f3ff;--mute:#8aa6bf;--glow:0 0 18px rgba(0,229,255,.45);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px));background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Rajdhani,"Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:Orbitron,"Segoe UI",sans-serif;margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:900;font-size:1.35rem;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
+.logo b{color:var(--cyan);text-shadow:var(--glow)}
+.logo svg{filter:drop-shadow(0 0 6px var(--cyan))}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:8px 16px;border-radius:6px;color:var(--mute);font-weight:600;letter-spacing:.04em;transition:.25s}
+nav a:hover,nav a.on{color:var(--cyan);background:rgba(0,229,255,.08);text-shadow:var(--glow)}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--cyan);border-radius:6px;padding:8px 12px}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:6px;border:1px solid var(--cyan);background:linear-gradient(135deg,var(--blue),var(--cyan));color:#00121c;font-weight:700;letter-spacing:.05em;transition:.25s;box-shadow:var(--glow)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(0,229,255,.8)}
+.btn.ghost{background:transparent;color:var(--cyan);box-shadow:none}
+.btn.ghost:hover{background:rgba(0,229,255,.1);box-shadow:var(--glow)}
+.btn.sm{padding:7px 16px;font-size:.95rem}
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;text-align:center;padding:120px 0 70px;overflow:hidden;background:radial-gradient(ellipse at 50% 0,#06223a 0,#000 65%)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.8}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(2.2rem,7vw,5.2rem);font-weight:900;line-height:1.05;letter-spacing:.03em;text-shadow:0 0 30px rgba(30,144,255,.8),0 0 70px rgba(0,229,255,.4);animation:rise 1s ease both}
+.hero h1 span{display:block;background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(0,229,255,.6))}
+.hero p{max-width:560px;margin:20px auto 30px;color:var(--mute);font-size:1.2rem}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.search{display:flex;max-width:620px;margin:0 auto 26px;border:1px solid var(--cyan);border-radius:10px;background:rgba(3,14,24,.9);box-shadow:var(--glow);overflow:hidden}
+.search input{flex:1;min-width:0;background:none;border:0;color:var(--text);font:inherit;font-size:1.1rem;padding:15px 18px}
+.search input:focus{outline:none}
+.search button{border:0;border-radius:0;padding:0 26px}
+.stats{display:flex;justify-content:center;gap:clamp(20px,5vw,60px);margin-top:44px;flex-wrap:wrap}
+.stats div{font-family:Orbitron,sans-serif;font-size:1.6rem;color:var(--cyan);text-shadow:var(--glow)}
+.stats small{display:block;font-family:Rajdhani,sans-serif;font-size:.95rem;color:var(--mute);text-shadow:none}
+/* sections */
+section{padding:70px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.head h2{font-size:clamp(1.4rem,3.5vw,2.1rem);letter-spacing:.05em;padding-left:16px;border-left:4px solid var(--cyan);box-shadow:-8px 0 18px -10px var(--cyan)}
+.head p{margin:6px 0 0 20px;color:var(--mute)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:transparent;border:1px solid var(--line);color:var(--mute);padding:6px 16px;border-radius:99px;transition:.25s}
+.chip:hover,.chip.on{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);box-shadow:var(--glow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.3s}
+.card:hover{transform:translateY(-8px);border-color:var(--cyan);box-shadow:0 12px 40px -10px rgba(0,229,255,.5)}
+.art{position:relative;aspect-ratio:16/10;overflow:hidden}
+.art svg{width:100%;height:100%;display:block;transition:transform .5s}
+.card:hover .art svg{transform:scale(1.08)}
+.rate{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.75);border:1px solid var(--cyan);color:var(--cyan);font-family:Orbitron,sans-serif;font-size:.8rem;padding:3px 9px;border-radius:6px}
+.new{position:absolute;top:10px;left:10px;background:var(--cyan);color:#00121c;font-weight:700;font-size:.8rem;padding:2px 9px;border-radius:6px}
+.body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.body h3{font-size:1.02rem;letter-spacing:.03em}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--mute);font-size:.95rem}
+.tag{color:var(--blue);border:1px solid var(--line);padding:0 10px;border-radius:99px;font-size:.88rem}
+.body .btn{margin-top:auto;justify-content:center}
+.body .meta+.btn{margin-top:10px}
+/* featured banners */
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.banner{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);min-height:340px;display:flex;align-items:flex-end;transition:.3s}
+.banner:hover{border-color:var(--cyan);box-shadow:0 0 40px -8px rgba(0,229,255,.6);transform:translateY(-6px)}
+.banner>svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.banner:hover>svg{transform:scale(1.07)}
+.banner .ov{position:relative;width:100%;padding:60px 22px 22px;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.banner h3{font-size:1.35rem;margin:4px 0 6px}
+.banner p{margin:0 0 14px;color:#bcd3e6}
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.cat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px 14px;text-align:center;transition:.3s;color:var(--text)}
+.cat:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-4px)}
+.cat svg{width:44px;height:44px;stroke:var(--cyan);fill:none;stroke-width:1.6;margin-bottom:8px;filter:drop-shadow(0 0 6px var(--cyan))}
+.cat h3{font-size:.95rem}.cat small{color:var(--mute)}
+.empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:var(--mute);border:1px dashed var(--line);border-radius:12px}
+/* about/contact */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.two p{color:var(--mute)}
+.about-art{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 0 50px -15px var(--blue)}
+.about-art svg{display:block;width:100%}
+form{display:grid;gap:14px}
+input,textarea{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);font:inherit;padding:13px 15px;border-radius:8px;transition:.25s}
+input:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:var(--glow)}
+textarea{min-height:130px;resize:vertical}
+/* footer */
+footer{border-top:1px solid var(--line);background:linear-gradient(#000,#030b13);padding:50px 0 28px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h4{font-family:Orbitron,sans-serif;font-size:.95rem;margin:0 0 12px;color:var(--cyan)}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;color:var(--mute)}
+footer li a:hover{color:var(--cyan)}
+footer p{color:var(--mute);max-width:340px}
+.soc{display:flex;gap:10px;margin-top:14px}
+.soc a{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;transition:.25s}
+.soc a:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-3px)}
+.soc svg{width:19px;height:19px;fill:var(--cyan)}
+.copy{text-align:center;color:var(--mute);margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:.95rem}
+/* modal + toast */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.box{width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--cyan);border-radius:14px;box-shadow:0 0 60px -10px var(--cyan);animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.box .info{padding:22px}
+.box h2{font-size:1.6rem;margin-bottom:8px}
+.x{float:right;margin:12px;background:rgba(0,0,0,.7);border:1px solid var(--cyan);color:var(--cyan);width:38px;height:38px;border-radius:50%;position:relative;z-index:2}
+.spec{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:#001a2b;border:1px solid var(--cyan);color:var(--cyan);padding:12px 22px;border-radius:8px;opacity:0;pointer-events:none;transition:.35s;z-index:200;box-shadow:var(--glow)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+#top{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:44px;height:44px;border-radius:50%;border:1px solid var(--cyan);background:#000;color:var(--cyan);opacity:0;pointer-events:none;transition:.3s;z-index:40;box-shadow:var(--glow)}
+#top.show{opacity:1;pointer-events:auto}
+@media(max-width:900px){.feat{grid-template-columns:1fr}.banner{min-height:260px}.two,.fgrid{grid-template-columns:1fr}.burger{display:block}
+nav{position:absolute;top:100%;left:0;right:0;background:rgba(0,0,0,.97);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s}
+nav.open{max-height:360px}nav ul{flex-direction:column;padding:10px 20px 16px}}
+@media(max-width:480px){.search button{padding:0 16px}.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a href="#home" class="logo" aria-label="GAME ZONE home"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.8"><path d="M6 8h12a4 4 0 0 1 4 4v3a3 3 0 0 1-5.4 1.8L15 15H9l-1.6 1.8A3 3 0 0 1 2 15v-3a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".8" fill="#00e5ff"/><circle cx="18" cy="13.5" r=".8" fill="#00e5ff"/></svg>GAME <b>ZONE</b></a>
+<nav id="nav"><ul>
+<li><a href="#home" class="on">Home</a></li><li><a href="#games">Games</a></li><li><a href="#categories">Categories</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+</div></header>
+
+<main>
+<section class="hero" id="home" style="padding-top:120px">
+<canvas id="bg"></canvas>
+<div class="wrap">
+<h1>ENTER THE <span>GAMING WORLD</span></h1>
+<p>Discover top-rated action, racing, shooter and RPG titles. Search the library and jump straight into your next obsession.</p>
+<div class="search" role="search"><input id="q" type="search" placeholder="Search games, categories…" aria-label="Search games" autocomplete="off"><button class="btn" id="go">Search</button></div>
+<a href="#featured" class="btn ghost">Explore featured games</a>
+<div class="stats"><div id="s1">0<small>Games</small></div><div id="s2">0<small>Players online</small></div><div id="s3">0<small>Categories</small></div></div>
+</div>
+</section>
+
+<section id="results" style="display:none;padding-bottom:0"><div class="wrap">
+<div class="head"><div><h2 id="rtitle">Search results</h2></div><button class="btn ghost sm" id="clear">Clear search</button></div>
+<div class="grid" id="rgrid"></div></div></section>
+
+<section id="featured"><div class="wrap">
+<div class="head"><div><h2>Featured Games</h2><p>Hand-picked by the Game Zone team.</p></div></div>
+<div class="feat" id="fgrid"></div></div></section>
+
+<section id="games" style="background:linear-gradient(#000,#020a12,#000)"><div class="wrap">
+<div class="head"><div><h2>Popular Games</h2><p>Highest rated by our players.</p></div>
+<div class="chips" id="chips"></div></div>
+<div class="grid" id="pgrid"></div>
+<div style="text-align:center;margin-top:28px"><button class="btn ghost" id="more">Show more games</button></div></div></section>
+
+<section id="latest"><div class="wrap">
+<div class="head"><div><h2>Latest Games</h2><p>Fresh releases added this season.</p></div></div>
+<div class="grid" id="lgrid"></div></div></section>
+
+<section id="categories" style="background:#020a12"><div class="wrap">
+<div class="head"><div><h2>Categories</h2><p>Pick a genre to filter the game list.</p></div></div>
+<div class="cats" id="cgrid"></div></div></section>
+
+<section id="about"><div class="wrap two">
+<div><div class="head" style="margin-bottom:16px"><h2>About Game Zone</h2></div>
+<p>Game Zone is a home for players who want great games without the noise. We rate every title on gameplay, visuals and replay value, so the list you see here is the list worth your time.</p>
+<p>New games land every week, with details for every title: genre, platforms, rating and what to expect before you play.</p>
+<button class="btn" data-toast="Welcome to the squad! Sign-ups open soon.">Join the community</button></div>
+<div class="about-art" id="aart"></div></div></section>
+
+<section id="contact" style="background:#020a12"><div class="wrap two">
+<div><div class="head" style="margin-bottom:16px"><h2>Contact Us</h2></div>
+<p>Questions, game suggestions or partnership ideas? Send us a message and we’ll reply within two working days.</p></div>
+<form id="form"><input name="n" placeholder="Your name" required aria-label="Your name"><input name="e" type="email" placeholder="Email address" required aria-label="Email"><textarea name="m" placeholder="Your message" required aria-label="Message"></textarea><button class="btn" type="submit">Send message</button></form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+<div class="fgrid">
+<div><div class="logo" style="margin-bottom:10px">GAME <b>ZONE</b></div><p>Your premium destination for discovering the best games on PC, console and mobile.</p>
+<div class="soc" id="soc"></div></div>
+<div><h4>Explore</h4><ul><li><a href="#home">Home</a></li><li><a href="#games">Games</a></li><li><a href="#categories">Categories</a></li><li><a href="#latest">Latest</a></li></ul></div>
+<div><h4>Company</h4><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#" data-toast="Privacy policy coming soon.">Privacy</a></li><li><a href="#" data-toast="Terms of use coming soon.">Terms</a></li></ul></div>
+</div>
+<div class="copy">© 2026 GAME ZONE. All rights reserved.</div></div></footer>
+
+<button id="top" aria-label="Back to top">↑</button>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="box"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const G=[
+["Neon Vanguard","Shooter",4.9,2026,200,"Squad-based tactical shooter set in a flooded cyber-city. Hold the line in 5v5 firefights.","PC · Console"],
+["Apex Drift","Racing",4.8,2026,190,"Street racing through neon highways with deep car tuning and online leagues.","PC · Console · Mobile"],
+["Shadow Realm","RPG",4.9,2025,265,"Dark fantasy RPG with a huge open world, branching quests and brutal bosses.","PC · Console"],
+["Iron Legion","Strategy",4.6,2025,150,"Command armies, build bases and out-think rivals in fast real-time battles.","PC"],
+["Blade Storm","Action",4.7,2026,330,"Fast hack-and-slash combat with flowing combos and relentless enemy waves.","PC · Console"],
+["Pro Arena 26","Sports",4.5,2026,120,"Realistic football with live seasons, career mode and ranked online play.","PC · Console · Mobile"],
+["Void Hunters","Shooter",4.4,2024,280,"Co-op sci-fi shooter. Hunt alien threats across derelict space stations.","PC · Console"],
+["Turbo Circuit","Racing",4.3,2024,170,"Arcade racing with wild shortcuts, boosts and split-screen multiplayer.","Console · Mobile"],
+["Rune Keepers","RPG",4.7,2025,45,"Build a party of heroes and explore ancient ruins in a story-rich adventure.","PC · Mobile"],
+["Empire Forge","Strategy",4.5,2025,215,"Grow a tiny village into a world empire through trade, tech and diplomacy.","PC · Mobile"],
+["Night Reaper","Action",4.6,2026,305,"Stealth-action assassin thriller across a rain-soaked neon metropolis.","PC · Console"],
+["Slam Dunk Nation","Sports",4.2,2024,25,"Street basketball with flashy dribbles, 3v3 matches and customizable players.","Console · Mobile"],
+["Crimson Front","Shooter",4.5,2025,350,"Large-scale war shooter with vehicles, destruction and 64-player battles.","PC · Console"],
+["Starfall Odyssey","RPG",4.8,2026,285,"Space-faring RPG. Crew a ship, chart unknown stars and shape the galaxy.","PC · Console"],
+["Rally Kings","Racing",4.4,2025,35,"Mud, snow and gravel. Master dangerous rally stages across the globe.","PC · Console"],
+["Chrono Tactics","Strategy",4.3,2026,175,"Turn-based tactics where you can rewind time to fix a single bad move.","PC · Mobile"],
+["Titan Brawl","Action",4.1,2024,10,"Arena brawler with giant bosses, local co-op and chaotic party modes.","Console · Mobile"],
+["Ace Tennis Pro","Sports",4.0,2025,160,"Fast-paced tennis with precise controls and global tournaments.","Console · Mobile"]
+].map((a,i)=>({id:i,name:a[0],cat:a[1],r:a[2],y:a[3],h:a[4],d:a[5],p:a[6]}));
+const CATS={Action:"M13 2 4 14h7l-1 8 9-12h-7z",Racing:"M3 17h18M5 17l2-7h10l2 7M8 17v2M16 17v2",Shooter:"M12 3v4M12 17v4M3 12h4M17 12h4M12 12m-5 0a5 5 0 1 0 10 0a5 5 0 1 0-10 0",RPG:"M12 2l3 7 7 .8-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.4L2 9.8 9 9z",Strategy:"M12 2l8 4.5v9L12 20l-8-4.5v-9zM12 20v-7M4 6.5l8 4.5 8-4.5",Sports:"M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"};
+const cats=Object.keys(CATS);
+function art(g,w=480,h=300){
+ const a=g.h,b=(a+50)%360,id="g"+g.id+w;let m="";
+ const c=`hsl(${b} 100% 65%)`;
+ if(g.cat=="Action")for(let i=0;i<6;i++)m+=`<path d="M${-40+i*90} ${h} L${60+i*90} 0" stroke="${c}" stroke-width="${2+i%3*3}" opacity=".${3+i%4}"/>`;
+ else if(g.cat=="Racing"){for(let i=-6;i<=6;i++)m+=`<path d="M${w/2+i*14} ${h*.45} L${w/2+i*95} ${h}" stroke="${c}" stroke-width="2" opacity=".6"/>`;for(let i=0;i<6;i++)m+=`<path d="M0 ${h*.5+i*i*7} H${w}" stroke="${c}" opacity=".5"/>`}
+ else if(g.cat=="Shooter"){m+=`<circle cx="${w/2}" cy="${h/2}" r="${h*.28}" fill="none" stroke="${c}" stroke-width="3"/><circle cx="${w/2}" cy="${h/2}" r="${h*.12}" fill="none" stroke="${c}" stroke-width="2"/><path d="M${w/2} ${h*.1}V${h*.9}M${w*.3} ${h/2}H${w*.7}" stroke="${c}" stroke-width="2"/>`}
+ else if(g.cat=="RPG"){m+=`<circle cx="${w*.7}" cy="${h*.3}" r="${h*.14}" fill="${c}" opacity=".85"/><path d="M0 ${h} L${w*.25} ${h*.5} L${w*.45} ${h*.78} L${w*.68} ${h*.4} L${w} ${h} Z" fill="#000" opacity=".6"/><path d="M0 ${h} L${w*.18} ${h*.68} L${w*.4} ${h} Z" fill="#000" opacity=".7"/>`}
+ else if(g.cat=="Strategy"){for(let r=0;r<4;r++)for(let q=0;q<7;q++){const x=q*70+(r%2)*35,y=r*62+20;m+=`<path d="M${x} ${y}l30 -17 30 17v34l-30 17 -30 -17z" fill="none" stroke="${c}" opacity="${(q+r)%3?.25:.8}" stroke-width="2"/>`}}
+ else {m+=`<circle cx="${w/2}" cy="${h/2}" r="${h*.38}" fill="none" stroke="${c}" stroke-width="3"/><circle cx="${w/2}" cy="${h/2}" r="${h*.16}" fill="none" stroke="${c}" stroke-width="2"/><path d="M${w/2} ${h*.12}V${h*.88}M${w*.15} ${h/2}H${w*.85}" stroke="${c}" opacity=".6"/>`}
+ const t=g.name.toUpperCase();
+ return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${g.name} cover art"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${a} 90% 14%)"/><stop offset=".55" stop-color="hsl(${a} 95% 30%)"/><stop offset="1" stop-color="hsl(${b} 100% 45%)"/></linearGradient><radialGradient id="${id}r" cx=".3" cy=".2" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#${id})"/><rect width="${w}" height="${h}" fill="url(#${id}r)"/>${m}<rect width="${w}" height="${h}" fill="#000" opacity=".12"/><text x="${w/2}" y="${h*.9}" text-anchor="middle" font-family="Orbitron,Arial" font-weight="900" font-size="${Math.min(30,w/(t.length*.78))}" fill="#fff" opacity=".92" style="letter-spacing:2px">${t}</text></svg>`;
+}
+const stars=r=>`★ ${r.toFixed(1)}`;
+function card(g,isNew){return `<article class="card"><div class="art">${art(g)}<span class="rate">${stars(g.r)}</span>${isNew?'<span class="new">NEW</span>':''}</div><div class="body"><h3>${g.name}</h3><div class="meta"><span class="tag">${g.cat}</span><span>${g.y}</span></div><button class="btn sm" data-d="${g.id}">Game details</button></div></article>`}
+function banner(g){return `<article class="banner">${art(g,600,420)}<div class="ov"><span class="tag">${g.cat}</span> <span class="rate" style="position:static;display:inline-block">${stars(g.r)}</span><h3>${g.name}</h3><p>${g.d}</p><button class="btn sm" data-d="${g.id}">Game details</button></div></article>`}
+const byR=[...G].sort((a,b)=>b.r-a.r);
+const latest=[...G].sort((a,b)=>b.y-a.y||b.r-a.r).slice(0,4);
+let cat="All",limit=8;
+function popular(){const list=byR.filter(g=>cat=="All"||g.cat==cat);$("#pgrid").innerHTML=list.slice(0,limit).map(g=>card(g)).join("")||'<div class="empty">No games in this category yet.</div>';$("#more").style.display=list.length>limit?"":"none"}
+$("#fgrid").innerHTML=[G[0],G[2],G[13]].map(banner).join("");
+$("#lgrid").innerHTML=latest.map(g=>card(g,true)).join("");
+$("#chips").innerHTML=["All",...cats].map(c=>`<button class="chip${c=="All"?" on":""}" data-c="${c}">${c}</button>`).join("");
+$("#cgrid").innerHTML=cats.map(c=>`<button class="cat" data-c="${c}" style="font:inherit"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="${CATS[c]}"/></svg><h3>${c}</h3><small>${G.filter(g=>g.cat==c).length} games</small></button>`).join("");
+popular();
+$("#aart").innerHTML=art({id:99,name:"Level up together",cat:"Strategy",h:210},700,380);
+function setCat(c){cat=c;limit=8;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x.dataset.c==c));popular()}
+/* search */
+function search(scroll){
+ const v=$("#q").value.trim().toLowerCase(),box=$("#results");
+ if(!v){box.style.display="none";return}
+ const res=G.filter(g=>(g.name+" "+g.cat+" "+g.d).toLowerCase().includes(v));
+ box.style.display="";$("#rtitle").textContent=`Search results for “${$("#q").value.trim()}” (${res.length})`;
+ $("#rgrid").innerHTML=res.map(g=>card(g)).join("")||'<div class="empty">No games found. Try a title or a genre such as “racing” or “RPG”.</div>';
+ if(scroll)box.scrollIntoView({behavior:"smooth"});
+}
+$("#q").addEventListener("input",()=>search(false));
+$("#q").addEventListener("keydown",e=>{if(e.key=="Enter")search(true)});
+$("#go").onclick=()=>$("#q").value.trim()?search(true):($("#q").focus(),toast("Type a game name or genre to search."));
+$("#clear").onclick=()=>{$("#q").value="";search();$("#home").scrollIntoView({behavior:"smooth"})};
+/* events */
+document.addEventListener("click",e=>{
+ const d=e.target.closest("[data-d]");if(d)return open(+d.dataset.d);
+ const c=e.target.closest("[data-c]");if(c){setCat(c.dataset.c);$("#games").scrollIntoView({behavior:"smooth"});return}
+ const t=e.target.closest("[data-toast]");if(t){e.preventDefault();toast(t.dataset.toast)}
+ if(e.target.id=="modal"||e.target.closest(".x"))close();
+ if(e.target.closest("nav a"))closeNav();
+});
+$("#more").onclick=()=>{limit+=6;popular()};
+function open(i){const g=G[i];
+ $("#box").innerHTML=`<button class="x" aria-label="Close">✕</button><div class="art" style="aspect-ratio:16/8">${art(g,760,380)}</div><div class="info"><h2>${g.name}</h2><div class="spec"><span class="tag">${g.cat}</span><span class="tag">${stars(g.r)} / 5</span><span class="tag">${g.y}</span><span class="tag">${g.p}</span></div><p style="color:var(--mute)">${g.d}</p><div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn" id="play">Play now</button><button class="btn ghost" id="wish">Add to wishlist</button></div></div>`;
+ $("#modal").classList.add("open");$("#play").onclick=()=>toast(`Launching ${g.name}…`);$("#wish").onclick=()=>toast(`${g.name} added to your wishlist`);$(".x").focus()}
+function close(){$("#modal").classList.remove("open")}
+document.addEventListener("keydown",e=>{if(e.key=="Escape"){close();closeNav()}});
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2600)}
+$("#form").onsubmit=e=>{e.preventDefault();toast("Message sent. We’ll reply soon!");e.target.reset()};
+const burger=$("#burger");function closeNav(){$("#nav").classList.remove("open");burger.setAttribute("aria-expanded","false")}
+burger.onclick=()=>{const o=$("#nav").classList.toggle("open");burger.setAttribute("aria-expanded",o)};
+$("#top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+/* scroll state */
+const links=[...document.querySelectorAll("nav a")];
+const secs=["home","games","categories","about","contact"].map(id=>$("#"+id));
+addEventListener("scroll",()=>{$("#top").classList.toggle("show",scrollY>600);let cur=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s});links.forEach(a=>a.classList.toggle("on",a.hash=="#"+cur.id))},{passive:true});
+/* counters */
+function count(el,end,suf){const t0=performance.now();(function f(t){const p=Math.min((t-t0)/1600,1);el.firstChild.nodeValue=Math.floor(end*p*(2-p)).toLocaleString()+suf;if(p<1)requestAnimationFrame(f)})(t0)}
+count($("#s1"),G.length*100,"+");count($("#s2"),24800,"");count($("#s3"),cats.length,"");
+/* hero particles */
+(function(){const c=$("#bg"),x=c.getContext("2d");let w,h,P=[];
+ function rs(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;P=Array.from({length:Math.min(70,w/16)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}))}
+ rs();addEventListener("resize",rs);
+ const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ function draw(){x.clearRect(0,0,w,h);P.forEach((p,i)=>{if(!rm){p.x=(p.x+p.vx+w)%w;p.y=(p.y+p.vy+h)%h}x.fillStyle="rgba(0,229,255,.8)";x.fillRect(p.x,p.y,2,2);for(let j=i+1;j<P.length;j++){const q=P[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){x.strokeStyle=`rgba(30,144,255,${.35*(1-d/120)})`;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}});if(!rm)requestAnimationFrame(draw)}
+ draw()})();
+/* socials */
+const S={Facebook:"M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z",Twitter:"M22 5.9a8 8 0 0 1-2.4.7 4 4 0 0 0 1.8-2.3 8 8 0 0 1-2.6 1 4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.7a4.1 4.1 0 0 0 1.3 5.5 4 4 0 0 1-1.9-.5 4.100 4.100 0 0 0 3.3 4.100 4 4 0 0 1-1.900.1 4.100 4.100 0 0 0 3.800 2.800A8.200 8.200 0 0 1 2 18.500 11.600 11.600 0 0 0 8.300 20.300c7.500 0 11.700-6.300 11.700-11.700v-.5A8.300 8.300 0 0 0 22 5.900z",Instagram:"M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.500a4.500 4.500 0 1 1 0 9 4.500 4.500 0 0 1 0-9zm0 2a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM17.500 5.500a1 1 0 1 1 0 2 1 1 0 0 1 0-2z",YouTube:"M21.600 7.200a2.500 2.500 0 0 0-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 0 0 2.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 0 0 1.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 0 0 1.800-1.800C22 15.200 22 12 22 12s0-3.200-.4-4.800zM10 15V9l5.200 3z",Discord:"M19.500 5.300A16 16 0 0 0 15.600 4l-.5 1a15 15 0 0 0-4.200 0l-.5-1a16 16 0 0 0-3.900 1.300C4 9 3.300 12.600 3.600 16.200a16 16 0 0 0 4.800 2.400l1-1.600a10 10 0 0 1-1.600-.8l.4-.3a11.500 11.500 0 0 0 7.600 0l.4.300a10 10 0 0 1-1.600.8l1 1.600a16 16 0 0 0 4.800-2.400c.4-4.200-.7-7.800-2.900-10.900zM9.300 14a1.500 1.500 0 1 1 0-3 1.500 1.500 0 0 1 0 3zm5.400 0a1.500 1.500 0 1 1 0-3 1.500 1.500 0 0 1 0 3z"};
+$("#soc").innerHTML=Object.entries(S).map(([n,p])=>`<a href="#" data-toast="Our ${n} page is coming soon." aria-label="${n}"><svg viewBox="0 0 24 24"><path d="${p}"/></svg></a>`).join("");
+</script>
+</body>
+</html>
+s
